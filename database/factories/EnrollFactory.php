@@ -25,7 +25,6 @@ class EnrollFactory extends Factory
             'phone'             => '017'.$this->faker->randomNumber(8),
             'nid'               => $this->faker->unique()->numerify('##############'),
             'dob'               => $this->faker->dateTimeBetween('-30 years', '-16 years')->format('Y-m-d'),
-            'schedule_at'       => null
         ];
     }
 }

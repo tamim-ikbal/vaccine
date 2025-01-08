@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Vaccine;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Queue\Queueable;
@@ -15,7 +16,7 @@ class ProcessVaccineCenters implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public Collection|DBCollection $vaccineCenters
+        public Collection|DBCollection $vaccineCenters,
     ) {
         //
     }
@@ -26,7 +27,8 @@ class ProcessVaccineCenters implements ShouldQueue
     public function handle(): void
     {
         foreach ($this->vaccineCenters as $vaccineCenter) {
-            ScheduleVaccineCenter::dispatch($vaccineCenter);
+            ScheduleVaccineFirstDose::dispatch($vaccineCenter);
+            SchduleVaccineRestDose::dispatch($vaccineCenter);
         }
     }
 }

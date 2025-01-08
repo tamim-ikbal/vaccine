@@ -18,6 +18,7 @@ class EnrollController extends Controller
         ]);
 
         $enroll = Enroll::query()
+            ->with(['vaccine', 'vaccinations', 'vaccinations.dose'])
             ->where(['nid' => $request->get('nid'), 'dob' => $request->get('dob')])
             ->first();
 

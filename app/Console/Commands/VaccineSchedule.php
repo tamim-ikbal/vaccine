@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ProcessVaccineCenters;
+use App\Models\Vaccine;
 use App\Models\VaccineCenter;
 use Illuminate\Console\Command;
 
@@ -26,6 +27,11 @@ class VaccineSchedule extends Command
      * Execute the console command.
      */
     public function handle()
+    {
+        $this->schedule();
+    }
+
+    private function schedule(): void
     {
         VaccineCenter::query()
             ->select('id', 'name', 'district', 'daily_limit')

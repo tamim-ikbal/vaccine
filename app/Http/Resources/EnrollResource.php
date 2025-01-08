@@ -15,12 +15,12 @@ class EnrollResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name'        => $this->name,
-            'email'       => $this->email,
-            'nid'         => $this->nid,
-            'phone'       => $this->phone,
-            'status'      => $this->status,
-            'schedule_at' => $this->schedule_at?->format('d F Y h:i A'),
+            'name'         => $this->name,
+            'email'        => $this->email,
+            'nid'          => $this->nid,
+            'phone'        => $this->phone,
+            'vaccine'      => VaccineResource::make($this->whenLoaded('vaccine')),
+            'vaccinations' => VaccinationResource::collection($this->whenLoaded('vaccinations')),
         ];
     }
 }

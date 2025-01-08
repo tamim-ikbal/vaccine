@@ -10,11 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('vaccine_centers', function (Blueprint $table) {
-            $table->integerIncrements('id')->primary();
-            $table->string('name', 100);
-            $table->string('district', 100);
-            $table->integer('daily_limit')->default(0);
+        Schema::create('vaccines', function (Blueprint $table) {
+            $table->smallIncrements('id')->primary();
+            $table->string('name', 50);
+            $table->unsignedSmallInteger('num_of_doses');
+            $table->unsignedSmallInteger('required_doses')->default(1);
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('vaccine_centers');
+        Schema::dropIfExists('vaccines');
     }
 };

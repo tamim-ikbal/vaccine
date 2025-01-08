@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 
 class Enroll extends Model
@@ -16,6 +18,21 @@ class Enroll extends Model
     public function vaccineCenter(): BelongsTo
     {
         return $this->belongsTo(VaccineCenter::class);
+    }
+
+    public function vaccinations(): HasMany
+    {
+        return $this->hasMany(Vaccination::class);
+    }
+
+    public function lastDose(): HasOne
+    {
+        return $this->hasOne(Vaccination::class)->latestOfMany();
+    }
+
+    public function vaccine(): BelongsTo
+    {
+        return $this->belongsTo(Vaccine::class);
     }
 
     public function status(): Attribute

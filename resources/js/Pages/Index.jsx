@@ -12,7 +12,7 @@ function Index() {
     const [enroll, setEnroll] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const {data, setData, errors, setError} = useForm({
+    const {data, setData, errors, setError,clearErrors} = useForm({
         nid: '1234567885', dob: '1998-12-14'
     })
 
@@ -27,6 +27,7 @@ function Index() {
             .then(response => response?.data)
             .then((response) => {
                 setEnroll(response)
+                clearErrors()
             })
             .catch(({response}) => {
                 setEnroll(null)

@@ -19,7 +19,7 @@ class VaccineCenterFactory extends Factory
         return [
             'name'        => $this->faker->streetName(),
             'district'    => $this->faker->city(),
-            'daily_limit' => $this->faker->randomNumber(2),
+            'daily_limit' => 1,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Dose;
 use App\Models\Enroll;
 use App\Models\VaccineCenter;
 use App\Notifications\VaccineScheduleDate;
@@ -18,7 +19,8 @@ class ScheduleVaccineDate implements ShouldQueue
      */
     public function __construct(
         private readonly stdClass|VaccineCenter $vaccineCenter,
-        private readonly stdClass|Enroll $enroll,
+        private readonly Enroll $enroll,
+        private readonly null|stdClass|Dose $dose = null,
     ) {
         //
     }
@@ -29,7 +31,12 @@ class ScheduleVaccineDate implements ShouldQueue
     public function handle(): void
     {
         $scheduleAt = now()->addDay()->setTime(10, 0);
-        $this->enroll->update(['schedule_at' => $scheduleAt]);
-        $this->enroll->notify(new VaccineScheduleDate($this->vaccineCenter, $scheduleAt));
+
+        $this->enroll->vaccinations()->create([
+            'schedule_at' => $scheduleAt,
+            'dose_id'     => $this->dose?->id ?? null,
+        ]);
+
+        $this->enroll->notify(new VaccineScheduleDate($this->vaccineCenter, $scheduleAt, $this->dose));
     }
 }

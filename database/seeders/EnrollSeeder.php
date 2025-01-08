@@ -13,8 +13,6 @@ class EnrollSeeder extends Seeder
      */
     public function run(): void
     {
-        Enroll::factory(200)->create([
-            //'schedule_at' => fake()->dateTimeBetween('-1 week', '+1 week')
-        ]);
+        Enroll::factory(50000)->create();
     }
 }
