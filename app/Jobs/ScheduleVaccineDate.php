@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\Enroll;
 use App\Models\VaccineCenter;
 use App\Notifications\VaccineScheduleDate;
+use App\Services\EnrollService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use stdClass;
@@ -31,5 +32,6 @@ class ScheduleVaccineDate implements ShouldQueue
         $scheduleAt = now()->addDay()->setTime(10, 0);
         $this->enroll->update(['schedule_at' => $scheduleAt]);
         $this->enroll->notify(new VaccineScheduleDate($this->vaccineCenter, $scheduleAt));
+        EnrollService::clearEnrollCache($this->enroll->nid);
     }
 }

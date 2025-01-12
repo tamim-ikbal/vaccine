@@ -8,4 +8,9 @@ class CacheKeyService
     {
         return 'verification'.$nid;
     }
+
+    public static function getEnrollKey(string $nid): string
+    {
+        return sprintf('get_enroll_status_key_%s', $nid);
+    }
 }

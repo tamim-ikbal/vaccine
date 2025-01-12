@@ -31,21 +31,18 @@ function VerifyCode({fieldName, fieldValue, nid, onCodeVerified}) {
     }
 
     return (<div className='flex flex-col gap-3'>
-        <div className="flex flex-col gap-2">
-            <span>Verify {fieldName.toUpperCase()}: {fieldValue}</span>
-            <div>
-                <TextInput
-                    id="code"
-                    name="code"
-                    value={data.code}
-                    className="mt-1 block w-full"
-                    autoComplete="name"
-                    isFocused={true}
-                    onChange={(e) => setData('code', e.target.value)}
-                    placeholder='Enter code...'
-                />
-                {errors.code && <span>{errors.code}</span>}
-            </div>
+        <div>
+            <TextInput
+                id="code"
+                name="code"
+                value={data.code}
+                className="mt-1 block w-full"
+                autoComplete="name"
+                isFocused={true}
+                onChange={(e) => setData('code', e.target.value)}
+                placeholder='Enter code...'
+            />
+            {errors.code && <span>{errors.code}</span>}
         </div>
         <PrimaryButton onClick={submit} disabled={loading} className='text-center justify-center'>
             Verify Code

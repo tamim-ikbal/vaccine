@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import {useForm} from "@inertiajs/react";
 
-function SendCode({fieldName, fieldValue, nid, onCodeSent}) {
+function SendCode({fieldName, fieldValue, nid, onCodeSent, isResend}) {
     const [loading, setLoading] = useState(false)
     const {data, setData, errors, setError, reset, setDefaults} = useForm({
         nid: nid, field_value: fieldValue, field_name: fieldName
@@ -40,12 +40,11 @@ function SendCode({fieldName, fieldValue, nid, onCodeSent}) {
     return (
         <div className='flex flex-col gap-3'>
             <div className="flex flex-col gap-2">
-                <span>Verify {data.field_name.toUpperCase()}: {data.field_value}</span>
                 {errors.field_value && <span>{errors.field_value}</span>}
             </div>
             <PrimaryButton onClick={sendCode} disabled={loading}
                            className='bg-orange-400 text-center justify-center hover:bg-orange-600'>
-                Send Code
+                {isResend ? 'Resend' : 'Send Code'}
             </PrimaryButton>
         </div>
     );

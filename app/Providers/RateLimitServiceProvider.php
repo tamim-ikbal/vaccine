@@ -23,10 +23,10 @@ class RateLimitServiceProvider extends ServiceProvider
     public function boot(): void
     {
         RateLimiter::for('enroll.status', function (Request $request) {
-            return Limit::perMinute(2)->by($request->input('nid'));
+            return Limit::perMinute(10)->by($request->input('nid'));
         });
         RateLimiter::for('verification.send', function (Request $request) {
-            return Limit::perMinutes(5, 2)->by(
+            return Limit::perMinutes(1, 2)->by(
                 $request->input('nid').$request->input('field_value')
             );
         });

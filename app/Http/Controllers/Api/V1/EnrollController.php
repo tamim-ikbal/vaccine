@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EnrollResource;
 use App\Models\Enroll;
+use App\Services\EnrollService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,9 +18,10 @@ class EnrollController extends Controller
             'dob' => ['required', 'date', 'date_format:Y-m-d'],
         ]);
 
-        $enroll = Enroll::query()
-            ->where(['nid' => $request->get('nid'), 'dob' => $request->get('dob')])
-            ->first();
+        $enroll = EnrollService::getEnroll(
+            nid: $request->get('nid'),
+            dob: $request->get('dob')
+        );
 
         if (!$enroll) {
             return response()->json([
